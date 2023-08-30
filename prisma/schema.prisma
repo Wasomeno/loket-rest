@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,3 +7,42 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Event {
+  id               Int           @id @default(autoincrement())
+  title            String
+  time             DateTime
+  place            String
+  min_ticket_price Int
+  creator_id       Int
+  category_id      Int
+  region_id        Int
+  category         EventCategory @relation(fields: [category_id], references: [id])
+  creator          EventCreator  @relation(fields: [creator_id], references: [id])
+  region           EventRegion   @relation(fields: [region_id], references: [id])
+}
+
+model EventCreator {
+  id             Int     @id @default(autoincrement())
+  name           String
+  email          String
+  image_logo     String
+  image_banner   String
+  address        String
+  description    String
+  events_created Event[]
+}
+
+model EventCategory {
+  id           Int     @id @default(autoincrement())
+  name         String
+  image_logo   String
+  image_banner String
+  description  String
+  events       Event[]
+}
+
+model EventRegion {
+  id     Int     @id @default(autoincrement())
+  name   String
+  events Event[]
+}
