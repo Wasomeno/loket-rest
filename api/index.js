@@ -1,6 +1,6 @@
 const express = require("express");
-const eventCategoryRoutes = require("./src/routes/eventCategoryRoutes");
-const eventRoutes = require("./src/routes/eventRoutes");
+const eventCategoryRoutes = require("../src/routes/eventCategoryRoutes");
+const eventRoutes = require("../src/routes/eventRoutes");
 
 const app = express();
 
