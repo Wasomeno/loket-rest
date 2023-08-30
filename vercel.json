@@ -3,7 +3,7 @@
   "builds": [
     {
       "src": "server.js",
-      "use": "@now/node && npx prisma generate"
+      "use": "@now/node"
     }
   ],
   "routes": [
