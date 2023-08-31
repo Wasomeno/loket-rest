@@ -8,17 +8,33 @@ datasource db {
 }
 
 model Event {
-  id               Int           @id @default(autoincrement())
+  id               Int               @id @default(autoincrement())
   title            String
-  time             DateTime
   place            String
   min_ticket_price Int
   creator_id       Int
   category_id      Int
   region_id        Int
-  category         EventCategory @relation(fields: [category_id], references: [id])
-  creator          EventCreator  @relation(fields: [creator_id], references: [id])
-  region           EventRegion   @relation(fields: [region_id], references: [id])
+  end_date         DateTime          @default(now())
+  end_time         Int               @default(0)
+  start_date       DateTime          @default(now())
+  start_time       Int               @default(0)
+  category         EventCategory     @relation(fields: [category_id], references: [id])
+  creator          EventCreator      @relation(fields: [creator_id], references: [id])
+  region           EventRegion       @relation(fields: [region_id], references: [id])
+  ticket_types     EventTicketType[]
+}
+
+model EventTicketType {
+  id          Int      @id @default(autoincrement())
+  name        String
+  amount      Int
+  price       Int
+  description Int
+  event_id    Int
+  sale_end    DateTime
+  sale_start  DateTime
+  event       Event    @relation(fields: [event_id], references: [id])
 }
 
 model EventCreator {
