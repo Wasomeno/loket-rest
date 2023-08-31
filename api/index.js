@@ -1,4 +1,6 @@
 const express = require("express");
+const cors = require("cors");
+
 const eventCategoryRoutes = require("../src/routes/eventCategoryRoutes");
 const eventRoutes = require("../src/routes/eventRoutes");
 
@@ -8,6 +10,8 @@ const PORT = process.env.PORT || 5000;
 
 app.use(eventCategoryRoutes);
 app.use(eventRoutes);
+
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.setHeader("Content-Type", "text/html");
