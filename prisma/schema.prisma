@@ -15,10 +15,9 @@ model Event {
   creator_id       Int
   category_id      Int
   region_id        Int
-  end_date         DateTime          @default(now())
-  end_time         Int               @default(0)
-  start_date       DateTime          @default(now())
-  start_time       Int               @default(0)
+  date_time_end    DateTime          @default(now())
+  date_time_start  DateTime          @default(now())
+  description      String            @default("")
   category         EventCategory     @relation(fields: [category_id], references: [id])
   creator          EventCreator      @relation(fields: [creator_id], references: [id])
   region           EventRegion       @relation(fields: [region_id], references: [id])
@@ -41,7 +40,7 @@ model EventCreator {
   id             Int     @id @default(autoincrement())
   name           String
   email          String  @unique
-  image_logo     String   
+  image_logo     String
   image_banner   String
   address        String
   description    String
