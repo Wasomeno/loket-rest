@@ -29,7 +29,7 @@ model EventTicketType {
   name        String
   amount      Int
   price       Int
-  description Int
+  description String
   event_id    Int
   sale_end    DateTime
   sale_start  DateTime
