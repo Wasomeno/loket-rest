@@ -11,6 +11,7 @@ model Event {
   id               Int               @id @default(autoincrement())
   title            String
   place            String
+  banner_image     String           @default("https://placehold.co/600x400.png")
   min_ticket_price Int
   creator_id       Int
   category_id      Int
@@ -33,14 +34,15 @@ model EventTicketType {
   event_id    Int
   sale_end    DateTime
   sale_start  DateTime
+  
   event       Event    @relation(fields: [event_id], references: [id])
 }
 
 model EventCreator {
   id             Int     @id @default(autoincrement())
   name           String
-  image_logo     String
-  image_banner   String
+  image_logo     String  @default("https://placehold.co/600x400.png")
+  image_banner   String  @default("https://placehold.co/600x400.png")
   address        String
   description    String
   user_id        Int     @unique @default(0)
@@ -51,8 +53,8 @@ model EventCreator {
 model EventCategory {
   id           Int     @id @default(autoincrement())
   name         String
-  image_logo   String
-  image_banner String
+  image_logo   String   @default("https://placehold.co/600x400.png")
+  image_banner String   @default("https://placehold.co/600x400.png")
   description  String
   events       Event[]
 }
