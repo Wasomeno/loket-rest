@@ -43,10 +43,9 @@ model EventCreator {
   image_banner   String
   address        String
   description    String
-  user_id        Int      @unique
-
-  user           User?   
+  user_id        Int     @unique @default(0)
   events_created Event[]
+  user           User?
 }
 
 model EventCategory {
@@ -64,13 +63,10 @@ model EventRegion {
   events Event[]
 }
 
-
-model User{
-  id                Int @id @default(autoincrement())
-  name              String
-  email             String @unique
-  event_creator_id  Int    @unique
-
-  event_creator     EventCreator? @relation(fields: [event_creator_id], references: [id])
+model User {
+  id               Int          @id @default(autoincrement())
+  name             String
+  email            String       @unique
+  event_creator_id Int          @unique
+  event_creator    EventCreator @relation(fields: [event_creator_id], references: [id])
 }
-
