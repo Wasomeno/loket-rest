@@ -26,6 +26,7 @@ async function createUserDetails(req, res) {
         },
       },
     });
+    res.status(200).json({ message: "Successfully saved user data" });
   } catch (error) {
     throw error;
   }
