@@ -4,6 +4,7 @@ async function getUserDetails(req, res) {
   const userEmail = req.params.userEmail;
   const userDetails = await prisma.user.findUnique({
     where: { email: userEmail },
+    include: { event_creator: true },
   });
   res.status(200).json(userDetails);
 }
