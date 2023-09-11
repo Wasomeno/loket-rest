@@ -1,8 +1,24 @@
+const { query } = require("express");
 const prisma = require("../../prisma/prisma");
 
 async function getAllEvents(req, res) {
+  const { categoryId, time, sort } = req.query;
   const allEvents = await prisma.event.findMany({
     include: { category: true, creator: true, region: true },
+    orderBy: sort !== undefined ? JSON.parse(sort) : {},
+    where:
+      categoryId || time
+        ? {
+            category: categoryId
+              ? {
+                  id: { equals: parseInt(req.query.categoryId) },
+                }
+              : {},
+            date_time_start: time
+              ? { gte: new Date(), lte: new Date(time) }
+              : {},
+          }
+        : {},
   });
   res.status(200).json(allEvents);
 }
