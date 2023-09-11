@@ -6,6 +6,7 @@ const eventCategoryRoutes = require("../src/routes/eventCategoryRoutes");
 const eventCreatorRoutes = require("../src/routes/eventCreatorRoutes");
 const eventRoutes = require("../src/routes/eventRoutes");
 const userRoutes = require("../src/routes/userRoutes");
+const searchRoutes = require("../src/routes/searchRoutes");
 
 const PORT = process.env.PORT || 5000;
 
@@ -23,6 +24,7 @@ app.use(eventCategoryRoutes);
 app.use(eventCreatorRoutes);
 app.use(eventRoutes);
 app.use(userRoutes);
+app.use(searchRoutes);
 
 app.get("/", (req, res) => {
   res.setHeader("Content-Type", "text/html");
