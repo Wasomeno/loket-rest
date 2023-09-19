@@ -30,8 +30,62 @@ async function getEventCreatorEvents(req, res) {
   res.status(200).json(eventCreator.events_created);
 }
 
+async function updateEventCreator(req, res) {
+  const creatorId = parseInt(req.params.creatorId);
+  const creatorDetails = req.body;
+
+  try {
+    await prisma.eventCreator.update({
+      where: { id: creatorId },
+      data: {
+        name: creatorDetails.name,
+        address: creatorDetails.address,
+        description: creatorDetails.description,
+      },
+    });
+    res.status(200).json({ message: "Successfully saved user data" });
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function updateEventCreatorLogo(req, res) {
+  const creatorId = parseInt(req.params.creatorId);
+  const { imageURL } = req.body;
+  try {
+    await prisma.eventCreator.update({
+      where: { id: creatorId },
+      data: { image_logo: imageURL },
+    });
+    res
+      .status(200)
+      .json({ message: "Succesfully updated event creator logo image" });
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function updateEventCreatorBanner(req, res) {
+  const creatorId = parseInt(req.params.creatorId);
+  const { imageURL } = req.body;
+  try {
+    await prisma.eventCreator.update({
+      where: { id: creatorId },
+      data: { image_banner: imageURL },
+    });
+    res
+      .status(200)
+      .json({ message: "Succesfully updated event creator banner image" });
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   getAllEventCreators,
   getEventCreatorDetails,
   getEventCreatorEvents,
+  updateEventCreatorLogo,
+  updateEventCreatorBanner,
+  updateEventCreator,
 };
