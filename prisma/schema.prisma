@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-   previewFeatures = ["fullTextSearch"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -16,8 +16,8 @@ model Event {
   creator_id       Int
   category_id      Int
   region_id        Int
-  date_time_end    DateTime          @default(now())
-  date_time_start  DateTime          @default(now())
+  date_time_end    DateTime          @default(now()) 
+  date_time_start  DateTime          @default(now()) 
   description      String            @default("")
   banner_image     String            @default("https://placehold.co/600x400.png")
   category         EventCategory     @relation(fields: [category_id], references: [id])
@@ -35,7 +35,7 @@ model EventTicketType {
   event_id    Int
   sale_end    DateTime
   sale_start  DateTime
-  event       Event    @relation(fields: [event_id], references: [id])
+  event       Event    @relation(fields: [event_id], references: [id], onDelete: Cascade)
 }
 
 model EventCreator {
