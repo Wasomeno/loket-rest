@@ -42,9 +42,10 @@ async function createEvent(req, res) {
   try {
     await prisma.event.create({
       data: {
+        banner_image: eventDetails.imageURL,
         title: eventDetails.title,
         place: "testplace",
-        min_ticket_price: 100000,
+        min_ticket_price: eventDetails.min_ticket_price,
         category: { connect: { id: parseInt(eventDetails.category_id) } },
         region: { connect: { id: 1 } },
         creator: { connect: { id: parseInt(eventDetails.creator_id) } },
@@ -59,5 +60,45 @@ async function createEvent(req, res) {
     throw error;
   }
 }
+async function updateEvent(req, res) {
+  const eventId = parseInt(req.params.eventId);
+  const eventDetails = req.body;
+  try {
+    await prisma.event.update({
+      where: { id: eventId },
+      data: {
+        banner_image: eventDetails.imageURL,
+        title: eventDetails.title,
+        place: eventDetails.place,
+        min_ticket_price: eventDetails.min_ticket_price,
+        category: { connect: { id: parseInt(eventDetails.category.id) } },
+        region: { connect: { id: 1 } },
+        creator: { connect: { id: parseInt(eventDetails.creator_id) } },
+        date_time_start: eventDetails.dateTimeStart,
+        date_time_end: eventDetails.dateTimeEnd,
+        description: eventDetails.description,
+      },
+    });
+    res.status(200).json({ message: "Succesfully update event" });
+  } catch (error) {
+    throw error;
+  }
+}
 
-module.exports = { getAllEvents, getEventDetails, createEvent };
+async function deleteEvent(req, res) {
+  const eventId = parseInt(req.params.eventId);
+  try {
+    await prisma.event.delete({ where: { id: eventId } });
+    res.status(200).json({ message: "Succesfully deleted event" });
+  } catch (error) {
+    throw error;
+  }
+}
+
+module.exports = {
+  getAllEvents,
+  getEventDetails,
+  createEvent,
+  updateEvent,
+  deleteEvent,
+};
